@@ -124,6 +124,10 @@ openssl req -new -x509 -sha256 -key server.key -out server.crt -days 36500
 推荐用一个叫SingleFile的插件可以把页面直接存成一个文件
 
 
+## Star History
+[![Star History Chart](https://api.star-history.com/svg?repos=zanjie1999/tcp-over-websocket&type=Date)](https://www.star-history.com/#zanjie1999/tcp-over-websocket&Date)
+
+
 ### 协议 咩License
 使用此项目视为您已阅读并同意遵守 [此LICENSE](https://github.com/zanjie1999/LICENSE)   
 Using this project is deemed to indicate that you have read and agreed to abide by [this LICENSE](https://github.com/zanjie1999/LICENSE)   
