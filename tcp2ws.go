@@ -24,6 +24,7 @@ import (
 	"github.com/google/uuid"
 	"github.com/gorilla/websocket"
 	"github.com/miekg/dns"
+	"github.com/libp2p/go-reuseport"
 )
 
 type tcp2wsSparkle struct {
@@ -533,11 +534,17 @@ func tcpHandler(listener net.Listener) {
 // 启动ws服务
 func startWsServer(listenPort string, isSsl bool, sslCrt string, sslKey string) {
 	var err error = nil
+	listener, err := reuseport.Listen("tcp", listenPort)
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
+	defer listener.Close()
 	if isSsl {
 		fmt.Println("use ssl cert: " + sslCrt + " " + sslKey)
-		err = http.ListenAndServeTLS(listenPort, sslCrt, sslKey, nil)
+		err = http.ServeTLS(listener, nil, sslCrt, sslKey)
 	} else {
-		err = http.ListenAndServe(listenPort, nil)
+		err = http.Serve(listener, nil)
 	}
 	if err != nil {
 		log.Fatal("tcp2ws Server Start Error: ", err)
